@@ -4,6 +4,7 @@
 //
 //  Created by Yusuke Kita on 5/9/15.
 //  Copyright (c) 2015 kitasuke. All rights reserved.
+//  修改日期：2026/11/25
 //
 
 import UIKit
@@ -101,9 +102,20 @@ open class MenuView: UIScrollView {
         super.init(coder: aDecoder)
     }
     
+    // 容器尺寸或选中字体变化后更新分段宽度，保留当前页、回调和原有焦点动画。
     override open func layoutSubviews() {
         super.layoutSubviews()
-        
+
+        // 分段菜单必须按自身可用宽度等分，不能依赖窗口宽度或仅依赖旋转回调。
+        if case .segmentedControl = menuOptions.displayMode {
+            menuItemViews.forEach { $0.updateConstraints(bounds.size) }
+
+            // 完成子项布局后同步焦点位置，避免宽度变化后下划线或圆角背景偏移。
+            contentView.layoutIfNeeded()
+            animateUnderlineViewIfNeeded()
+            animateRoundRectViewIfNeeded()
+        }
+
         adjustmentContentInsetIfNeeded()
     }
     

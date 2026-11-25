@@ -1,3 +1,14 @@
+# 2.2.1 Release notes (2026/11/25)
+
+### Bug fixes
+
+- Size segmented menu items using the menu container's actual width when layout changes, including embedded safe-area layouts and window resizing without rotation.
+- Keep underline and round-rectangle focus indicators aligned after resizing and selection changes, without rebuilding pages or changing the current selection.
+
+### Distribution
+
+- Point the podspec to the KoStudio fork and declare its existing Swift 4.2 language version.
+
 # 2.2.0 Release notes (2017/01/08)
 
 ### Enhancements
